@@ -1,6 +1,6 @@
 # zotyall-campus-life-planner
 
-Video link: https://github.com/zotyall/zotyall-campus-life-planner.git
+Videolink: https://youtu.be/c4qyXFDadWs
 page link: https://zotyall.github.io/zotyall-campus-life-planner/
 
 ## Features (Implemented)
