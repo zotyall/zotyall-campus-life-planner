@@ -38,43 +38,58 @@
         <div class="card">Total Duration: 0</div>
         <div class="card">Top Tag: -</div>
       </div>
+      <div id="trendChart" class="trend-chart"></div>
     </section>
 
     <!-- FORM -->
-    <form id="taskForm">
+    <section id="form">
+        <form id="taskForm">
 
-        <label for="title">Title</label>
-        <input type="text" id="title" />
-        <small id="titleError"></small>
-      
-        <label for="dueDate">Due Date</label>
-        <input type="date" id="dueDate" />
-        <small id="dateError"></small>
-      
-        <label for="duration">Duration (minutes)</label>
-        <input type="number" id="duration" />
-        <small id="durationError"></small>
-      
-        <label for="tag">Tag</label>
-        <input type="text" id="tag" />
-        <small id="tagError"></small>
-      
-        <button type="submit">Add Task</button>
-      
-      </form>
+            <label for="title">Title</label>
+            <input type="text" id="title" />
+            <small id="titleError"></small>
+          
+            <label for="dueDate">Due Date</label>
+            <input type="date" id="dueDate" />
+            <small id="dateError"></small>
+          
+            <label for="duration">Duration (minutes)</label>
+            <input type="number" id="duration" />
+            <small id="durationError"></small>
+          
+            <label for="tag">Tag</label>
+            <input type="text" id="tag" />
+            <small id="tagError"></small>
+          
+            <button type="submit">Add Task</button>
+          
+          </form>
+    </section>
+    
       <!--SEARCH BAR-->
-      <section>
+      <section id="search">
         <h2>Search Tasks</h2>
-        <input type="text" id="searchInput" placeholder="Search tasks..." />
-      
+    
+        <label for="searchInput">Regex Search</label>
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Enter regex..."
+        >
+    
+        <label>
+            <input type="checkbox" id="ignoreCase" checked>
+            Ignore Case
+        </label>
+    
+        <label for="sortSelect">Sort Tasks</label>
         <select id="sortSelect">
-          <option value="default">Sort By</option>
-          <option value="title">Title (A-Z)</option>
-          <option value="date">Date</option>
-          <option value="duration">Duration</option>
+            <option value="default">Default</option>
+            <option value="title">Title (A-Z)</option>
+            <option value="date">Due Date</option>
+            <option value="duration">Duration</option>
         </select>
-      </section>  
-
+    </section>
     <!-- TASK LIST -->
     <section id="tasks">
         <h2>Tasks</h2>
@@ -85,9 +100,19 @@
 
     <!-- SETTINGS -->
     <section id="settings">
-      <h2>Settings</h2>
-      <p>Target duration, import/export will be added later.</p>
-    </section>
+        <h2>Settings</h2>
+      
+        <button id="exportBtn">Export Tasks</button>
+      
+        <br><br>
+      
+        <label for="importFile">Import Tasks</label>
+        <input
+            type="file"
+            id="importFile"
+            accept=".json,application/json"
+        >
+      </section>
 
     <!-- ABOUT -->
     <section id="about">
@@ -101,6 +126,6 @@
     <p>Campus Life Planner © 2026</p>
   </footer>
 
-  <script src="scripts/app.js"></script>
+  <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
