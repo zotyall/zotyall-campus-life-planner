@@ -1,0 +1,1 @@
+# zotyall-campus-life-planner
