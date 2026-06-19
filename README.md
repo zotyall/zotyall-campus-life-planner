@@ -1,5 +1,14 @@
 # zotyall-campus-life-planner
 
+## Features (Implemented)
+
+- Add, delete, and manage tasks
+- Live regex search filtering
+- Dynamic dashboard (total tasks, total duration, top tag)
+- JSON export and import functionality
+- localStorage persistence
+- Responsive UI layout
+
 ## Regex Catalog
 
 The application uses regular expressions for form validation and search functionality.
@@ -127,6 +136,18 @@ Used to announce:
 - Data exported
 
 ---
+## Data Persistence
+
+All tasks are automatically saved in the browser using localStorage.  
+Data persists even after refreshing or closing the page.
+
+## JSON Import/Export
+
+The application supports:
+
+- Exporting all tasks as a JSON file
+- Importing tasks from a valid JSON file
+- Validation of imported data structure before loading
 
 ## Running Tests
 
