@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Validation Tests</title>
+</head>
+<body>
+
+<h2>Regex Test Results</h2>
+
+<div id="results"></div>
+
+<script type="module">
+
+import {
+  validateTitle,
+  validateDuration,
+  validateDate,
+  validateTag
+} from "./scripts/validators.js";
+
+/*
+  This function prints test results on screen
+*/
+function test(name, fn, input) {
+  const result = fn(input); // run validation
+
+  const div = document.createElement("div");
+
+  if (result) {
+    div.textContent = `${name} (${input}) => PASS`;
+    div.style.color = "green";
+  } else {
+    div.textContent = `${name} (${input}) => FAIL`;
+    div.style.color = "red";
+  }
+
+  document.getElementById("results").appendChild(div);
+}
+
+/* TEST CASES */
+test("Title", validateTitle, "Study Math");
+test("Duration", validateDuration, "90");
+test("Date", validateDate, "2026-01-01");
+test("Tag", validateTag, "Study");
+
+</script>
+
+</body>
+</html>
