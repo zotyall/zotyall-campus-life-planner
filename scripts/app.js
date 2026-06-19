@@ -1,52 +1,34 @@
 import { saveTasks, loadTasks } from "./storage.js";
 
-const searchInput = document.getElementById("searchInput");
-const sortSelect = document.getElementById("sortSelect");
+/* DOM */
 const form = document.getElementById("taskForm");
 const taskList = document.getElementById("taskList");
+const searchInput = document.getElementById("searchInput");
+
 const exportBtn = document.getElementById("exportBtn");
 const importFile = document.getElementById("importFile");
+
 const totalTasks = document.getElementById("totalTasks");
 const totalDuration = document.getElementById("totalDuration");
 const topTag = document.getElementById("topTag");
 
+/* DATA */
 let tasks = loadTasks();
 
-// Show saved tasks when page loads
+/* INIT */
 renderTasks();
 updateDashboard();
-/*
-  Check that an imported task has the required fields
-*/
-function isValidTask(task) {
 
-    return (
-        task.id !== undefined &&
-        typeof task.title === "string" &&
-        typeof task.date === "string" &&
-        task.duration !== undefined &&
-        typeof task.tag === "string"
-    );
-
-}
-
-/*
-  Add task
-*/
-form.addEventListener("submit", function (e) {
+/* ADD TASK */
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const title = document.getElementById("title").value;
-  const date = document.getElementById("dueDate").value;
-  const duration = document.getElementById("duration").value;
-  const tag = document.getElementById("tag").value;
 
   const task = {
     id: Date.now(),
-    title,
-    date,
-    duration,
-    tag
+    title: document.getElementById("title").value,
+    date: document.getElementById("dueDate").value,
+    duration: Number(document.getElementById("duration").value),
+    tag: document.getElementById("tag").value
   };
 
   tasks.push(task);
@@ -54,33 +36,35 @@ form.addEventListener("submit", function (e) {
   saveTasks(tasks);
   renderTasks();
   updateDashboard();
+
   form.reset();
 });
 
-/*
-  Show tasks on screen
-*/
-function renderTasks(filteredTasks = tasks) {
+/* RENDER */
+function renderTasks(list = tasks) {
   taskList.innerHTML = "";
 
-  filteredTasks.forEach(task => {
+  list.forEach(task => {
     const div = document.createElement("div");
 
     div.innerHTML = `
       <h3>${task.title}</h3>
       <p>${task.date}</p>
-      <p>${task.duration} minutes</p>
+      <p>${task.duration} min</p>
       <p>${task.tag}</p>
-      <button onclick="deleteTask(${task.id})">Delete</button>
     `;
 
+    const btn = document.createElement("button");
+    btn.textContent = "Delete";
+
+    btn.addEventListener("click", () => deleteTask(task.id));
+
+    div.appendChild(btn);
     taskList.appendChild(div);
   });
 }
 
-/*
-  Delete task
-*/
+/* DELETE */
 function deleteTask(id) {
   tasks = tasks.filter(t => t.id !== id);
 
@@ -89,147 +73,86 @@ function deleteTask(id) {
   updateDashboard();
 }
 
+/* DASHBOARD */
 function updateDashboard() {
+  totalTasks.textContent = `Total Tasks: ${tasks.length}`;
 
-    // Total number of tasks
-    totalTasks.textContent = `Total Tasks: ${tasks.length}`;
+  const total = tasks.reduce((sum, t) => sum + Number(t.duration), 0);
+  totalDuration.textContent = `Total Duration: ${total} minutes`;
 
-    // Total duration
-    const duration = tasks.reduce((sum, task) => {
-        return sum + Number(task.duration);
-    }, 0);
+  const counts = {};
+  tasks.forEach(t => {
+    counts[t.tag] = (counts[t.tag] || 0) + 1;
+  });
 
-    totalDuration.textContent = `Total Duration: ${duration} minutes`;
+  let top = "None";
+  let max = 0;
 
-    // Find the most common tag
-    const tagCount = {};
-
-    tasks.forEach(task => {
-
-        if (tagCount[task.tag]) {
-            tagCount[task.tag]++;
-        } else {
-            tagCount[task.tag] = 1;
-        }
-
-    });
-
-    let bestTag = "None";
-    let highest = 0;
-
-    for (let tag in tagCount) {
-
-        if (tagCount[tag] > highest) {
-            highest = tagCount[tag];
-            bestTag = tag;
-        }
-
+  for (let key in counts) {
+    if (counts[key] > max) {
+      max = counts[key];
+      top = key;
     }
-
-    topTag.textContent = `Top Tag: ${bestTag}`;
-
-}
-
-/*
-  SEARCH INPUT EVENT
-*/
-searchInput.addEventListener("input", function () {
-
-  const pattern = searchInput.value;
-
-  let filtered = tasks;
-
-  if (pattern) {
-
-    try {
-
-      const regex = new RegExp(pattern, "i");
-
-      filtered = tasks.filter(task =>
-        regex.test(task.title) ||
-        regex.test(task.tag)
-      );
-
-    } catch (e) {
-
-      filtered = tasks;
-
-    }
-
   }
 
-  renderTasks(filtered);
+  topTag.textContent = `Top Tag: ${top}`;
+}
 
+/* SEARCH (REGEX SAFE) */
+searchInput.addEventListener("input", () => {
+  try {
+    const regex = new RegExp(searchInput.value, "i");
+
+    const filtered = tasks.filter(
+      t => regex.test(t.title) || regex.test(t.tag)
+    );
+
+    renderTasks(filtered);
+  } catch {
+    renderTasks(tasks);
+  }
 });
 
-/*
-  EXPORT TASKS AS JSON
-*/
-exportBtn.addEventListener("click", function () {
-
-  const data = JSON.stringify(tasks, null, 2);
-
-  const blob = new Blob([data], {
+/* EXPORT */
+exportBtn.addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(tasks, null, 2)], {
     type: "application/json"
   });
 
   const url = URL.createObjectURL(blob);
 
-  const link = document.createElement("a");
-
-  link.href = url;
-  link.download = "tasks.json";
-
-  link.click();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "tasks.json";
+  a.click();
 
   URL.revokeObjectURL(url);
-
 });
 
-/*
-  IMPORT TASKS FROM JSON
-*/
-importFile.addEventListener("change", function (event) {
+/* IMPORT */
+importFile.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
 
-    const file = event.target.files[0];
+  const reader = new FileReader();
 
-    if (!file) {
-        return;
+  reader.onload = (event) => {
+    try {
+      const data = JSON.parse(event.target.result);
+
+      if (!Array.isArray(data)) throw new Error();
+
+      tasks = data;
+
+      saveTasks(tasks);
+      renderTasks();
+      updateDashboard();
+
+      alert("Import successful!");
+    } catch {
+      alert("Invalid file");
     }
+  };
 
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-
-        try {
-
-            const importedTasks = JSON.parse(e.target.result);
-
-            // Check that the JSON is an array
-            if (
-                !Array.isArray(importedTasks) ||
-                !importedTasks.every(isValidTask)
-            ) {
-                throw new Error("Invalid file");
-            }
-
-            tasks = importedTasks;
-
-            saveTasks(tasks);
-
-            renderTasks();
-            updateDashboard();
-
-            alert("Tasks imported successfully!");
-
-        } catch (error) {
-
-            alert("Invalid JSON file.");
-
-        }
-
-    };
-
-    reader.readAsText(file);
-
+  reader.readAsText(file);
 });

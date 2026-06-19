@@ -31,13 +31,20 @@ body {
   }
   
   /* ===== NAV ===== */
+  nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
   nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
+display: flex;
     flex-direction: column;
     background: #ddd;
+    gap: 20px;
   }
   
   nav a {

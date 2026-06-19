@@ -1,15 +1,9 @@
-const STORAGE_KEY = "campusPlannerTasks";
+const KEY = "campus_tasks";
 
 export function saveTasks(tasks) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  localStorage.setItem(KEY, JSON.stringify(tasks));
 }
 
 export function loadTasks() {
-    const data = localStorage.getItem(STORAGE_KEY);
-
-    if (data) {
-        return JSON.parse(data);
-    }
-
-    return [];
+  return JSON.parse(localStorage.getItem(KEY)) || [];
 }

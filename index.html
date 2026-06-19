@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Campus Life Planner</title>
 
   <link rel="stylesheet" href="styles/style.css" />
@@ -10,122 +10,72 @@
 
 <body>
 
-  <!-- Skip link (accessibility) -->
-  <a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
-  <header>
-    <h1>Campus Life Planner</h1>
-    <p>Organize tasks, study sessions, and campus life</p>
-  </header>
+<header>
+  <h1>Campus Life Planner</h1>
+  <p>Organize tasks, study sessions, and campus life</p>
+</header>
 
-  <nav>
+<nav>
     <ul>
-      <li><a href="#dashboard">Dashboard</a></li>
-      <li><a href="#form">Add Task</a></li>
-      <li><a href="#tasks">Tasks</a></li>
-      <li><a href="#settings">Settings</a></li>
-      <li><a href="#about">About</a></li>
+        <a href="#dashboard">Dashboard</a>
+  <a href="#form">Add Task</a>
+  <a href="#tasks">Tasks</a>
+  <a href="#settings">Settings</a>
+  <a href="#about">About</a>
     </ul>
-  </nav>
+  
+</nav>
 
-  <main id="main-content">
+<main id="main-content">
 
-    <!-- DASHBOARD -->
-    <section id="dashboard">
-      <h2>Dashboard</h2>
-      <div class="card-container">
-        <div class="card">Total Tasks: 0</div>
-        <div class="card">Total Duration: 0</div>
-        <div class="card">Top Tag: -</div>
-      </div>
-      <div id="trendChart" class="trend-chart"></div>
-    </section>
+  <!-- DASHBOARD -->
+  <section id="dashboard">
+    <h2>Dashboard</h2>
 
-    <!-- FORM -->
-    <section id="form">
-        <form id="taskForm">
+    <div class="card" id="totalTasks">Total Tasks: 0</div>
+    <div class="card" id="totalDuration">Total Duration: 0 minutes</div>
+    <div class="card" id="topTag">Top Tag: None</div>
+  </section>
 
-            <label for="title">Title</label>
-            <input type="text" id="title" />
-            <small id="titleError"></small>
-          
-            <label for="dueDate">Due Date</label>
-            <input type="date" id="dueDate" />
-            <small id="dateError"></small>
-          
-            <label for="duration">Duration (minutes)</label>
-            <input type="number" id="duration" />
-            <small id="durationError"></small>
-          
-            <label for="tag">Tag</label>
-            <input type="text" id="tag" />
-            <small id="tagError"></small>
-          
-            <button type="submit">Add Task</button>
-          
-          </form>
-    </section>
-    
-      <!--SEARCH BAR-->
-      <section id="search">
-        <h2>Search Tasks</h2>
-    
-        <label for="searchInput">Regex Search</label>
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Enter regex..."
-        >
-    
-        <label>
-            <input type="checkbox" id="ignoreCase" checked>
-            Ignore Case
-        </label>
-    
-        <label for="sortSelect">Sort Tasks</label>
-        <select id="sortSelect">
-            <option value="default">Default</option>
-            <option value="title">Title (A-Z)</option>
-            <option value="date">Due Date</option>
-            <option value="duration">Duration</option>
-        </select>
-    </section>
-    <!-- TASK LIST -->
-    <section id="tasks">
-        <h2>Tasks</h2>
-      
-        <!-- This is where JS will render tasks -->
-        <div id="taskList"></div>
-      </section>
+  <!-- FORM -->
+  <section id="form">
+    <h2>Add Task</h2>
 
-    <!-- SETTINGS -->
-    <section id="settings">
-        <h2>Settings</h2>
-      
-        <button id="exportBtn">Export Tasks</button>
-      
-        <br><br>
-      
-        <label for="importFile">Import Tasks</label>
-        <input
-            type="file"
-            id="importFile"
-            accept=".json,application/json"
-        >
-      </section>
+    <form id="taskForm">
+      <input id="title" placeholder="Title" required />
+      <input id="dueDate" type="date" required />
+      <input id="duration" type="number" required />
+      <input id="tag" placeholder="Tag" required />
+      <button type="submit">Add Task</button>
+    </form>
+  </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About</h2>
-      <p>This app helps students manage their campus life efficiently.</p>
-    </section>
+  <!-- TASKS -->
+  <section id="tasks">
+    <h2>Tasks</h2>
+    <input id="searchInput" placeholder="Search..." />
+    <div id="taskList"></div>
+  </section>
 
-  </main>
+  <!-- SETTINGS -->
+  <section id="settings">
+    <h2>Settings</h2>
 
-  <footer>
-    <p>Campus Life Planner © 2026</p>
-  </footer>
+    <button id="exportBtn">Export JSON</button>
+    <input type="file" id="importFile" />
+  </section>
 
-  <script type="module" src="scripts/app.js"></script>
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About</h2>
+    <p>Campus Life Planner helps students manage tasks efficiently.</p>
+  </section>
+
+</main>
+
+<script type="module" src="scripts/app.js"></script>
+
 </body>
 </html>
