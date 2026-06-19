@@ -1,8 +1,114 @@
+/* ===== GLOBAL ===== */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
-}
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+    background: #f5f5f5;
+    color: #222;
+  }
+  
+  /* ===== SKIP LINK ===== */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: black;
+    color: white;
+    padding: 8px;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+  
+  /* ===== HEADER ===== */
+  header {
+    background: #1e3a8a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  /* ===== NAV ===== */
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background: #ddd;
+  }
+  
+  nav a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+  }
+  
+  /* ===== MAIN ===== */
+  main {
+    padding: 10px;
+  }
+  
+  /* ===== CARDS ===== */
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .card {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* ===== FORM ===== */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  input, button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  button {
+    background: #1e3a8a;
+    color: white;
+    border: none;
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 10px;
+    background: #ddd;
+  }
+  
+  /* ===== FOCUS ===== */
+  a:focus, input:focus, button:focus {
+    outline: 3px solid orange;
+  }
+  
+  @media (min-width: 768px) {
 
-h1 {
-    color: navy;
-}
+    nav ul {
+      flex-direction: row;
+      justify-content: center;
+    }
+  
+    .card-container {
+      flex-direction: row;
+    }
+  
+    main {
+      max-width: 900px;
+      margin: auto;
+    }
+  }  
+  

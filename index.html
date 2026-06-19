@@ -1,18 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Life Planner</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Life Planner</title>
 
-    <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/style.css" />
 </head>
+
 <body>
 
+  <!-- Skip link (accessibility) -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <header>
     <h1>Campus Life Planner</h1>
+    <p>Organize tasks, study sessions, and campus life</p>
+  </header>
 
-    <p>Project setup successful.</p>
+  <nav>
+    <ul>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#form">Add Task</a></li>
+      <li><a href="#tasks">Tasks</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
 
-    <script src="scripts/app.js"></script>
+  <main id="main-content">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard">
+      <h2>Dashboard</h2>
+      <div class="card-container">
+        <div class="card">Total Tasks: 0</div>
+        <div class="card">Total Duration: 0</div>
+        <div class="card">Top Tag: -</div>
+      </div>
+    </section>
+
+    <!-- FORM -->
+    <section id="form">
+      <h2>Add Task</h2>
+
+      <form>
+        <label>Title</label>
+        <input type="text" placeholder="Study Math" />
+
+        <label>Due Date</label>
+        <input type="date" />
+
+        <label>Duration (minutes)</label>
+        <input type="number" />
+
+        <label>Tag</label>
+        <input type="text" placeholder="Study" />
+
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <!-- TASK LIST -->
+    <section id="tasks">
+      <h2>Tasks</h2>
+      <p>No tasks yet.</p>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings">
+      <h2>Settings</h2>
+      <p>Target duration, import/export will be added later.</p>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About</h2>
+      <p>This app helps students manage their campus life efficiently.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Campus Life Planner © 2026</p>
+  </footer>
+
+  <script src="scripts/app.js"></script>
 </body>
 </html>
