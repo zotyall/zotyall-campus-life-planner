@@ -1,5 +1,8 @@
 # zotyall-campus-life-planner
 
+Video link: https://github.com/zotyall/zotyall-campus-life-planner.git
+page link: https://zotyall.github.io/zotyall-campus-life-planner/
+
 ## Features (Implemented)
 
 - Add, delete, and manage tasks
